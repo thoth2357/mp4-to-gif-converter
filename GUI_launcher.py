@@ -1,7 +1,7 @@
 # importing packages for Gui
 import tkinter as tk
 from tkinter import messagebox as msg
-from tkinter import ttk
+from tkinter import ttkc
 from time import sleep
 from timeit import timeit
 import importlib 
