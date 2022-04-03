@@ -62,21 +62,24 @@ class window(tk.Tk):
         self.file_view.configure(state ='disabled')
         
     def convert_files(self):
+        self.progress_bar()
         store_path = os.path.join(Path.home(), 'Documents/gif-to-mp4')
         if not os.path.isdir(store_path):
             os.makedirs(store_path)
         for file in self.files_opened:
             gif_clip = mp.VideoFileClip(file)
             gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
-
+        self.tips.configure(text='Completed')
+        
     def progress_bar(self):
         self.progress_Bar['maximum'] = 100
-        for i  in range(100):
+        for i in range(100):
+            self.tips.configure(text='Working on file')
+
             sleep(self.duration/100)
             self.progress_Bar['value'] = i
             self.progress_Bar.update()
             self.progress_Bar['value'] = 0
-        self.tips.configure(text='Completed')
     
     def Time_to_run(self):
         Code_to_test = """def convert_files(self):
