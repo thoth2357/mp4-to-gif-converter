@@ -1,5 +1,6 @@
 #script written for copilot to convert gif files to mp4
 
+import queue
 import tkinter as tk
 from tkinter import ttk
 import tkinter.filedialog as fd
@@ -7,16 +8,19 @@ import tkinter.scrolledtext as scrolledtext
 import moviepy.editor as mp
 from pathlib import Path
 import os
-from time import sleep, time
+from time import sleep
+from timeit import timeit
 
 
-class selfdow(tk.Tk):
+
+class window(tk.Tk):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.title('Gif converter')
         self.resizable(0,0)
         self.geometry('%dx%d+%d+%d' % (300, 300, 300, 10))
         self.main()
+        self.Time_to_run()
 
     def main(self):
         'Main instance method to create selfdow'
@@ -39,9 +43,10 @@ class selfdow(tk.Tk):
         # add progress bar
         self.tips = tk.Label(Frame, text='Status!!')
         self.tips.place(relx = 0.45, rely=0.75)
-        self.progress_Bar = ttk.Progressbar(Frame, orient='horizontal', length=294, mode='determinate')
+        self.progress_Bar = ttk.Progressbar(Frame, orient='horizontal', length=294, mode='indeterminate')
         self.progress_Bar.place(relx=0.00, rely=0.85)
         
+
         
         # Add a Button Widget
         ttk.Button(self, text="Convert Files", command=self.convert_files).pack()
@@ -57,15 +62,12 @@ class selfdow(tk.Tk):
         self.file_view.configure(state ='disabled')
         
     def convert_files(self):
-        start_time = time()
         store_path = os.path.join(Path.home(), 'Documents/gif-to-mp4')
         if not os.path.isdir(store_path):
             os.makedirs(store_path)
         for file in self.files_opened:
             gif_clip = mp.VideoFileClip(file)
             gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
-        self.duration =time() - start_time
-        self.progress_bar()
 
     def progress_bar(self):
         self.progress_Bar['maximum'] = 100
@@ -75,5 +77,16 @@ class selfdow(tk.Tk):
             self.progress_Bar.update()
             self.progress_Bar['value'] = 0
         self.tips.configure(text='Completed')
-        
-selfdow().mainloop()
+    
+    def Time_to_run(self):
+        Code_to_test = """def convert_files(self):
+            store_path = os.path.join(Path.home(), 'Documents/gif-to-mp4')
+            if not os.path.isdir(store_path):
+                os.makedirs(store_path)
+            for file in self.files_opened:
+                gif_clip = mp.VideoFileClip(file)
+                gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
+        """
+        self.duration = timeit(Code_to_test)
+        print('time', self.duration)
+window().mainloop()
