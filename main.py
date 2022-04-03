@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 import tkinter.filedialog as fd
 import tkinter.scrolledtext as scrolledtext
+from traceback import print_tb
 
 
 
@@ -29,18 +30,23 @@ class selfdow(tk.Tk):
         self.btn1.place(relx=0.37, rely=0.09)
 
         #add a scrolled text field to show files choosen
-        self.file_view = scrolledtext.ScrolledText(self, wrap='word', width=46, height=10)
+        self.file_view = scrolledtext.ScrolledText(self, wrap='word', width=46, height=10, fg='gray')
         self.file_view['font'] = ('consolas', '12')
-        self.file_view.place(relx=0.00, rely=0.22)
-        self.file_view.configure(state ='disabled')
+        self.file_view.place(relx=0.01, rely=0.22)
 
         # Add a Button Widget
         ttk.Button(self, text="Convert Files", command=self.convert_files).pack()
 
     def open_file(self):
         file = fd.askopenfilenames(parent=self, title='Choose a File')
-        print(self.splitlist(file))
-
+        files_opened = self.splitlist(file)
+        self.file_view.configure(state='normal')
+        self.file_view.delete('1.0',tk.END)
+        for elem in files_opened:
+            filename = elem.split('/')[-1]
+            self.file_view.insert(tk.INSERT, f'{filename}\n')
+        self.file_view.configure(state ='disabled')
+        
     def convert_files(self):
         pass
 
