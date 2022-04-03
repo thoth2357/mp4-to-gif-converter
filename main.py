@@ -10,6 +10,8 @@ from pathlib import Path
 import os
 from time import sleep
 from timeit import timeit
+from tkinter import messagebox
+
 
 
 
@@ -51,6 +53,7 @@ class window(tk.Tk):
         # Add a Button Widget
         ttk.Button(self, text="Convert Files", command=self.convert_files).pack()
 
+
     def open_file(self):
         file = fd.askopenfilenames(parent=self, title='Choose a File')
         self.files_opened = self.splitlist(file)
@@ -68,9 +71,10 @@ class window(tk.Tk):
             os.makedirs(store_path)
         for file in self.files_opened:
             gif_clip = mp.VideoFileClip(file)
-            gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
+            gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1][0:file.split('/')[-1].index('.')]}.mp4")
         self.tips.configure(text='Completed')
-        
+        messagebox.showinfo("Info", "Check gif-to-mp4 folder in documents for converted Gif.Thanks")
+
     def progress_bar(self):
         self.progress_Bar['maximum'] = 100
         for i in range(100):
@@ -91,5 +95,4 @@ class window(tk.Tk):
                 gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
         """
         self.duration = timeit(Code_to_test)
-        print('time', self.duration)
 window().mainloop()
