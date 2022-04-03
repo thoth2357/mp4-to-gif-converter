@@ -28,7 +28,12 @@ class selfdow(tk.Tk):
         self.btn1 = ttk.Button(self, text="Select", command=self.open_file)
         self.btn1.place(relx=0.37, rely=0.09)
 
-        #add a 
+        #add a scrolled text field to show files choosen
+        self.file_view = scrolledtext.ScrolledText(self, wrap='word', width=46, height=10)
+        self.file_view['font'] = ('consolas', '12')
+        self.file_view.place(relx=0.00, rely=0.22)
+        self.file_view.configure(state ='disabled')
+
         # Add a Button Widget
         ttk.Button(self, text="Convert Files", command=self.convert_files).pack()
 
