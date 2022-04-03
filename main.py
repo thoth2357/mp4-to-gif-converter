@@ -34,7 +34,13 @@ class selfdow(tk.Tk):
         self.file_view = scrolledtext.ScrolledText(self, wrap='word', width=46, height=10, fg='gray')
         self.file_view['font'] = ('consolas', '12')
         self.file_view.place(relx=0.01, rely=0.22)
-
+        
+        # add progress bar
+        self.progress_Bar = ttk.Progressbar(Frame, orient='horizontal', length=294, mode='determinate')
+        self.progress_Bar.place(relx=0.00, rely=0.75)
+        # self.tips = tk.Label(Frame, text='Tips!!')
+        # self.tips.place(relx = 0.45, rely=0.30)
+        
         # Add a Button Widget
         ttk.Button(self, text="Convert Files", command=self.convert_files).pack()
 
@@ -49,11 +55,12 @@ class selfdow(tk.Tk):
         self.file_view.configure(state ='disabled')
         
     def convert_files(self):
-        store_path = os.path.join(Path.home(), 'documents/gif-to-mp4')
-        if os.path.isdir(store)
+        store_path = os.path.join(Path.home(), 'Documents/gif-to-mp4')
+        if not os.path.isdir(store_path):
+            os.makedirs(store_path)
         for file in self.files_opened:
             gif_clip = mp.VideoFileClip(file)
-            gif_clip.write_videofile(f"{file.split('/')[-1]}.mp4")
+            gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
 
 
 selfdow().mainloop()
