@@ -4,8 +4,9 @@ import tkinter as tk
 from tkinter import ttk
 import tkinter.filedialog as fd
 import tkinter.scrolledtext as scrolledtext
-from traceback import print_tb
-
+import moviepy.editor as mp
+from pathlib import Path
+import os
 
 
 class selfdow(tk.Tk):
@@ -39,16 +40,20 @@ class selfdow(tk.Tk):
 
     def open_file(self):
         file = fd.askopenfilenames(parent=self, title='Choose a File')
-        files_opened = self.splitlist(file)
+        self.files_opened = self.splitlist(file)
         self.file_view.configure(state='normal')
         self.file_view.delete('1.0',tk.END)
-        for elem in files_opened:
+        for elem in self.files_opened:
             filename = elem.split('/')[-1]
             self.file_view.insert(tk.INSERT, f'{filename}\n')
         self.file_view.configure(state ='disabled')
         
     def convert_files(self):
-        pass
+        store_path = os.path.join(Path.home(), 'documents/gif-to-mp4')
+        if os.path.isdir(store)
+        for file in self.files_opened:
+            gif_clip = mp.VideoFileClip(file)
+            gif_clip.write_videofile(f"{file.split('/')[-1]}.mp4")
 
 
 selfdow().mainloop()
