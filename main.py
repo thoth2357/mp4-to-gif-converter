@@ -7,6 +7,7 @@ import tkinter.scrolledtext as scrolledtext
 import moviepy.editor as mp
 from pathlib import Path
 import os
+from time import sleep, time
 
 
 class selfdow(tk.Tk):
@@ -36,10 +37,11 @@ class selfdow(tk.Tk):
         self.file_view.place(relx=0.01, rely=0.22)
         
         # add progress bar
+        self.tips = tk.Label(Frame, text='Status!!')
+        self.tips.place(relx = 0.45, rely=0.75)
         self.progress_Bar = ttk.Progressbar(Frame, orient='horizontal', length=294, mode='determinate')
-        self.progress_Bar.place(relx=0.00, rely=0.75)
-        # self.tips = tk.Label(Frame, text='Tips!!')
-        # self.tips.place(relx = 0.45, rely=0.30)
+        self.progress_Bar.place(relx=0.00, rely=0.85)
+        
         
         # Add a Button Widget
         ttk.Button(self, text="Convert Files", command=self.convert_files).pack()
@@ -55,12 +57,23 @@ class selfdow(tk.Tk):
         self.file_view.configure(state ='disabled')
         
     def convert_files(self):
+        start_time = time()
         store_path = os.path.join(Path.home(), 'Documents/gif-to-mp4')
         if not os.path.isdir(store_path):
             os.makedirs(store_path)
         for file in self.files_opened:
             gif_clip = mp.VideoFileClip(file)
             gif_clip.write_videofile(f"{store_path}/{file.split('/')[-1]}.mp4")
+        self.duration =time() - start_time
+        self.progress_bar()
 
-
+    def progress_bar(self):
+        self.progress_Bar['maximum'] = 100
+        for i  in range(100):
+            sleep(self.duration/100)
+            self.progress_Bar['value'] = i
+            self.progress_Bar.update()
+            self.progress_Bar['value'] = 0
+        self.tips.configure(text='Completed')
+        
 selfdow().mainloop()

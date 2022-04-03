@@ -215,7 +215,7 @@ class Recommender ( tk.Tk ):
             sleep(self.time_taken/100)
             self.progress_Bar['value'] = i
             self.progress_Bar.update()
-            self. progress_Bar['value'] = 0
+            self.progress_Bar['value'] = 0
         self.tips.configure(text='Completed')
     
     def Time_to_run(self):
