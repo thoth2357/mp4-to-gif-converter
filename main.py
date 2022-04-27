@@ -1,19 +1,20 @@
 #script written for copilot to convert gif files to mp4
-
-import queue
-import tkinter as tk
-from tkinter import ttk
-import tkinter.filedialog as fd
-import tkinter.scrolledtext as scrolledtext
-import moviepy.editor as mp
-from pathlib import Path
-import os
-from time import sleep
-from timeit import timeit
-from tkinter import messagebox
-
-
-
+try:
+    import queue
+    import tkinter as tk
+    from tkinter import ttk
+    import tkinter.filedialog as fd
+    import tkinter.scrolledtext as scrolledtext
+    import moviepy.editor as mp
+    from pathlib import Path
+    import os
+    from time import sleep
+    from timeit import timeit
+    from tkinter import messagebox
+except ModuleNotFoundError:
+    import os
+    print('Some packages not found ..automatically installing them')
+    os.system('pip install -r requirements.txt')
 
 class window(tk.Tk):
     def __init__(self, *args, **kwargs) -> None:
