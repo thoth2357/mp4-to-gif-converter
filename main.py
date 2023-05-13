@@ -1,4 +1,3 @@
-#script written for copilot to convert gif files to mp4
 try:
     import queue
     import tkinter as tk
@@ -14,7 +13,7 @@ try:
 except ModuleNotFoundError:
     import os
     print('Some packages not found ..automatically installing them')
-    os.system('pip install -r requirements.txt')
+    os.system('pip install -r requirement.txt')
 
 class window(tk.Tk):
     def __init__(self, *args, **kwargs) -> None:
